@@ -44,3 +44,12 @@ export type RequestError = {
   name: string;
   message: string;
 };
+
+export type TicketTypeInput = {
+  ticketTypeId: number
+};
+
+export type CreateTicket = {
+  ticketTypeId: number,
+  enrollmentId: number,
+};
