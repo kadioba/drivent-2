@@ -2,7 +2,7 @@ import ticketsService from "@/services/tickets-service";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 
-type AuthenticatedRequest = Request & {
+export type AuthenticatedRequest = Request & {
     userId: number;
 };
 
@@ -17,7 +17,7 @@ export async function getTicketsType(req: Request, res: Response) {
 }
 
 export async function getUserTickets(req: AuthenticatedRequest, res: Response) {
-    const userId: number = req.userId;
+    const userId: number = Number(req.userId);
 
     try {
         const tickets = await ticketsService.getUserTickets(userId);
@@ -32,8 +32,8 @@ export async function getUserTickets(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function createNewTicket(req: AuthenticatedRequest, res: Response) {
-    const userId: number = req.userId;
-    const ticketTypeId: number = req.body.ticketTypeId;
+    const userId: number = Number(req.userId);
+    const ticketTypeId: number = Number(req.body.ticketTypeId);
 
     try {
         const createdTicket = await ticketsService.createNewTicket(userId, ticketTypeId)

@@ -29,10 +29,34 @@ async function createNewTicket(ticketTypeId: number, enrollmentId: number) {
     })
 }
 
+async function getTicketById(ticketId: number) {
+    return prisma.ticket.findFirst({
+        where: {
+            id: ticketId
+        },
+        include: {
+            TicketType: true
+        }
+    })
+}
+
+async function setTicketAsPaid(ticketId: number) {
+    return prisma.ticket.update({
+        data: {
+            status: "PAID"
+        },
+        where: {
+            id: ticketId
+        }
+    })
+}
+
 const ticketsRepository = {
     getTicketsType,
     getUserTickets,
-    createNewTicket
+    createNewTicket,
+    getTicketById,
+    setTicketAsPaid
 }
 
 export default ticketsRepository;

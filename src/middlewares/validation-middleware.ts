@@ -13,6 +13,7 @@ export function validateParams<T>(schema: ObjectSchema<T>): ValidationMiddleware
 
 function validate(schema: ObjectSchema, type: 'body' | 'params') {
   return (req: Request, res: Response, next: NextFunction) => {
+    console.log(req[type])
     const { error } = schema.validate(req[type], {
       abortEarly: false,
     });
@@ -20,6 +21,7 @@ function validate(schema: ObjectSchema, type: 'body' | 'params') {
     if (!error) {
       next();
     } else {
+      console.log(error)
       res.status(httpStatus.BAD_REQUEST).send(invalidDataError(error.details.map((d) => d.message)));
     }
   };
