@@ -26,13 +26,13 @@ async function upsert(
 
 async function getUserEnrollmentId(userId: number) {
   return prisma.enrollment.findUnique({
-      select: {
-          id: true
-      },
-      where: {
-          userId
-      }
-  })
+    select: {
+      id: true,
+    },
+    where: {
+      userId,
+    },
+  });
 }
 
 export type CreateEnrollmentParams = Omit<Enrollment, 'id' | 'createdAt' | 'updatedAt'>;
